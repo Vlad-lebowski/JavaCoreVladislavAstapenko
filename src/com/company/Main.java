@@ -27,19 +27,19 @@ public class Main {
 
         //task 2
         System.out.println("Task 2");
-        int[] fibonacci = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711};
-        int sumFib = 0;
-        int index = (int)Math.floor(Math.random()*(fibonacci.length - 1));
+        int sumFibonacci = 0;
+        int fibonacciOne, fibonacciTwo = 0, fibonacciThree = 1;
+        int index = (int)Math.floor(Math.random() * 10 + 1);
         System.out.println("Index is " + index);
-        for (int i = 0; i < fibonacci.length; i++) {
-            if (fibonacci[i] % 2 == 0) {
-                sumFib += fibonacci[i];
-            }
-            if (i == index){
-                break;
+        for (int i = 2; i <= index; i++) { // start with 2 to correctly begin fibonacci sequence
+            fibonacciOne = fibonacciTwo;
+            fibonacciTwo = fibonacciThree;
+            fibonacciThree = fibonacciOne + fibonacciTwo;
+            if (fibonacciThree % 2 == 0){
+                sumFibonacci += fibonacciThree;
             }
         }
-        System.out.println("Sum of even Fibonacci numbers up to index " + index + " is " + sumFib);
+        System.out.println("Sum of even Fibonacci numbers up to index " + index + " is " + sumFibonacci);
         System.out.println();
 
         //task 3
