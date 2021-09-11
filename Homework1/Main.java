@@ -180,5 +180,42 @@ public class Main {
             }
             System.out.println();
         }
+        System.out.println();
+
+        //task 7
+        System.out.println("Task 7");
+
+        System.out.println();
+
+        //task8
+        System.out.println("Task 8");
+        int[] score = {1, 2, 3, 4, 5, 3, 2, 1, 2, 6, 5, 4, 3, 3, 2, 1, 1, 3, 3, 3, 4, 2};
+        int[] money = new int[score.length];
+        int minMoneySum = 0;
+        money[0] = 1;
+        for (int i = 0; i < score.length; i++){
+            if (i - 1 >= 0 && score[i] > score[i - 1]){
+                money[i] += money[i - 1] + 1;
+            }
+            if (i - 1 >= 0 && score[i] <= score[i - 1]){
+                money[i] = 1;
+                if (i + 1 < score.length && score[i] > score[i + 1]){
+                    int j = i;
+                    while (j + 1 < score.length && score[j] > score[j + 1]){
+                        money[j] += 1;
+                        j--;
+                        if(money[j] > money[j - 1] && money[j] > money[j + 1]){
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int j : money) {
+            minMoneySum += j;
+        }
+        System.out.println(Arrays.toString(money));
+        System.out.println("Minimum sum of money is " + minMoneySum);
     }
 }
