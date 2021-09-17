@@ -8,6 +8,7 @@ public class Box {
     private int x;
     private int y;
     private int z;
+    private BoxType boxType;
 
     public int getX() {
         return x;
@@ -39,9 +40,9 @@ public class Box {
             this.y = y;
             this.z = z;
             if (x == y && x == z){
-                System.out.println("The box is a cube.");
+                this.boxType = BoxType.CUBE;
             } else {
-                System.out.println("This is just a regular box.");
+                this.boxType = BoxType.BOX;
             }
         } else {
             System.out.println("What are you, some kind of a joker?");
@@ -53,7 +54,7 @@ public class Box {
             this.x = x;
             this.y = x;
             this.z = x;
-            System.out.println("The box is a cube.");
+            this.boxType = BoxType.CUBE;
         } else {
             System.out.println("Yes, very funny.");
         }
@@ -63,7 +64,7 @@ public class Box {
         if (x > 0 && y > 0){
             this.x = x;
             this.y = y;
-            System.out.println("This is an envelope!");
+            this.boxType = BoxType.ENVELOPE;
         } else {
             System.out.println("Stop it, alright?");
         }
@@ -85,7 +86,7 @@ public class Box {
             this.x = size;
             this.y = size;
             this.z = size;
-            System.out.println("The box is a cube.");
+            this.boxType = BoxType.CUBE;
         } else if(secondMatcher.find()){
             Pattern innerPattern = Pattern.compile("([0-9]+)");
             Matcher innerMatcher = innerPattern.matcher(box);
@@ -96,7 +97,7 @@ public class Box {
             }
             this.x = twoSizes[0];
             this.y = twoSizes[1];
-            System.out.println("This is an envelope!");
+            this.boxType = BoxType.ENVELOPE;
         } else if(thirdMatcher.find()){
             Pattern innerPattern = Pattern.compile("([0-9]+)");
             Matcher innerMatcher = innerPattern.matcher(box);
@@ -109,9 +110,9 @@ public class Box {
             this.y = threeSizes[1];
             this.z = threeSizes[2];
             if (this.x == this.y && this.x == this.z){
-                System.out.println("The box is a cube.");
+                this.boxType = BoxType.CUBE;
             } else {
-                System.out.println("This is just a regular box.");
+                this.boxType = BoxType.BOX;
             }
         } else {
             System.out.println("There can't be such box!");
