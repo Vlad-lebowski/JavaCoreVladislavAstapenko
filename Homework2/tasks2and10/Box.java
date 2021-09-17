@@ -34,39 +34,49 @@ public class Box {
     }
 
     public Box(int x, int y, int z){
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        if (x > 0 && y > 0 && z > 0){
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            if (x == y && x == z){
+                System.out.println("The box is a cube.");
+            } else {
+                System.out.println("This is just a regular box.");
+            }
+        } else {
+            System.out.println("What are you, some kind of a joker?");
+        }
     }
 
     public Box(int x){
-        this.x = x;
-        this.y = x;
-        this.z = x;
+        if (x > 0) {
+            this.x = x;
+            this.y = x;
+            this.z = x;
+            System.out.println("The box is a cube.");
+        } else {
+            System.out.println("Yes, very funny.");
+        }
     }
 
     public Box(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-
-    public void typeOfBox(){
-        if(this.x > 0 && this.x == this.y && this.x == this.z){
-            System.out.println("The box is a cube.");
-        } else if (this.x > 0 && this.y > 0 && this.z > 0 && x != y){
-            System.out.println("This is just a regular box.");
-        } else if ((this.x > 0 && this.y > 0 && this.z == 0) || (this.x > 0 && this.y == 0 && this.z > 0) ||
-                (this.x == 0 && this.y > 0 && this.z > 0)){
+        if (x > 0 && y > 0){
+            this.x = x;
+            this.y = y;
             System.out.println("This is an envelope!");
         } else {
-            System.out.println("I don't know what the hell this is, but this is definitely not a box!");
+            System.out.println("Stop it, alright?");
         }
-
     }
 
-    public Box (String box){
+    public
+    Box (String box){
         Pattern pattern = Pattern.compile("Box\\[[0-9]*]");
         Matcher matcher = pattern.matcher(box);
+        Pattern secondPattern = Pattern.compile("Box\\[[0-9]*,[0-9]*]");
+        Matcher secondMatcher = secondPattern.matcher(box);
+        Pattern thirdPattern = Pattern.compile("Box\\[[0-9]*,[0-9]*,[0-9]*]");
+        Matcher thirdMatcher = thirdPattern.matcher(box);
         if(matcher.find()){
             Pattern innerPattern = Pattern.compile("([0-9]+)");
             Matcher innerMatcher = innerPattern.matcher(box);
@@ -75,10 +85,8 @@ public class Box {
             this.x = size;
             this.y = size;
             this.z = size;
-        }
-        Pattern secondPattern = Pattern.compile("Box\\[[0-9]*,[0-9]*]");
-        Matcher secondMatcher = secondPattern.matcher(box);
-        if(secondMatcher.find()){
+            System.out.println("The box is a cube.");
+        } else if(secondMatcher.find()){
             Pattern innerPattern = Pattern.compile("([0-9]+)");
             Matcher innerMatcher = innerPattern.matcher(box);
             innerMatcher.find();
@@ -88,10 +96,8 @@ public class Box {
             }
             this.x = twoSizes[0];
             this.y = twoSizes[1];
-        }
-        Pattern thirdPattern = Pattern.compile("Box\\[[0-9]*,[0-9]*,[0-9]*]");
-        Matcher thirdMatcher = thirdPattern.matcher(box);
-        if(thirdMatcher.find()){
+            System.out.println("This is an envelope!");
+        } else if(thirdMatcher.find()){
             Pattern innerPattern = Pattern.compile("([0-9]+)");
             Matcher innerMatcher = innerPattern.matcher(box);
             int[] threeSizes = new int[3];
@@ -102,6 +108,13 @@ public class Box {
             this.x = threeSizes[0];
             this.y = threeSizes[1];
             this.z = threeSizes[2];
+            if (this.x == this.y && this.x == this.z){
+                System.out.println("The box is a cube.");
+            } else {
+                System.out.println("This is just a regular box.");
+            }
+        } else {
+            System.out.println("There can't be such box!");
         }
     }
 }

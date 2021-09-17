@@ -18,14 +18,28 @@ public class Demo {
 
         System.out.println("Task 6");
         String exampleForLongest = "We need to find the longest possible word in this string. You hear me? The longest!!!";
-        String longest = Arrays.stream(exampleForLongest.split("\\s+|!+|[.]+|,+|[?]+"))
-                .max(Comparator.comparingInt(String::length)).orElse(null);
+        int countForMax = 0;
+        int max = 0;
+        int wordStart = 0;
+        for (int i = 0; i < exampleForLongest.length(); i++){
+            if (Character.toString(exampleForLongest.charAt(i)).matches("[A-Za-z]")){
+                countForMax++;
+            } else {
+                if (countForMax > max){
+                    max = countForMax;
+                    wordStart = i - countForMax;
+                }
+                countForMax = 0;
+            }
+        }
+        String longest = exampleForLongest.substring(wordStart, wordStart + max);
         System.out.println("The longest word is \"" + longest + "\"");
         System.out.println();
 
         System.out.println("Task 7");
-        Pattern secondPattern = Pattern.compile("\\b[Аа]+[ЁёА-я]*[Аа]+\\b");
-        Matcher secondMatcher = secondPattern.matcher("Аргентина");
+        String checkText = "лампа компьютер диван а аладин";
+        Pattern secondPattern = Pattern.compile("\\b[Аа]\\b|\\b[Аа]+[ЁёА-я]*[Аа]+\\b");
+        Matcher secondMatcher = secondPattern.matcher(checkText);
         if(secondMatcher.find()){
             System.out.println("There is a russian word that starts and ends with the letter \"А\".");
         } else {
@@ -56,10 +70,8 @@ public class Demo {
 
         System.out.println("Task 10");
         Box box = new Box("Box[2]");
-        box.typeOfBox();
         box = new Box("Box[15,17,20]");
-        box.typeOfBox();
         box = new Box("Box[17,20]");
-        box.typeOfBox();
+        box = new Box("Box[17,17,17]");
     }
 }
