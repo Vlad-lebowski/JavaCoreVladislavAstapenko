@@ -1,4 +1,4 @@
-package com.company.homeworkThree;
+package com.company.homeworkThree.carProperties;
 
 public enum CarModel {
     BMW,

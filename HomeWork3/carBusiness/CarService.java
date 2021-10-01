@@ -1,4 +1,8 @@
-package com.company.homeworkThree;
+package com.company.homeworkThree.carBusiness;
+
+import com.company.homeworkThree.car.Car;
+import com.company.homeworkThree.carProperties.CarColor;
+import com.company.homeworkThree.carProperties.WheelSize;
 
 public class CarService {
     public void changeCarColor (Car car, CarColor carColor){

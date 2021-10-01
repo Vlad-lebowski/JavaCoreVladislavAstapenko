@@ -1,4 +1,9 @@
-package com.company.homeworkThree;
+package com.company.homeworkThree.car;
+
+import com.company.homeworkThree.carProperties.CarColor;
+import com.company.homeworkThree.carProperties.CarModel;
+import com.company.homeworkThree.carProperties.EngineVolume;
+import com.company.homeworkThree.carProperties.WheelSize;
 
 import java.time.Year;
 
