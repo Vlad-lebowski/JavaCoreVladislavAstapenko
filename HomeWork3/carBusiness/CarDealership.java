@@ -16,26 +16,6 @@ public class CarDealership{
     public CarDealership(){
     }
 
-    public void askServiceToChangeCarColor (Car car, CarService carService, CarColor carColor){
-        for (Car value : this.stock) {
-            if (value.equals(car)) {
-                carService.changeCarColor(car, carColor);
-                return;
-            }
-        }
-        System.out.println("This is not the car of this dealership!");
-    }
-
-    public void askServiceToChangeWheelSize (Car car, CarService carService, WheelSize wheelSize){
-        for (Car value : this.stock) {
-            if (value.equals(car)) {
-                carService.changeWheelSize(car, wheelSize);
-                return;
-            }
-        }
-        System.out.println("This is the car of this dealership!");
-    }
-
     public void sellCar (Car car){
         for (Car value : this.stock) {
             if (value.equals(car)) {

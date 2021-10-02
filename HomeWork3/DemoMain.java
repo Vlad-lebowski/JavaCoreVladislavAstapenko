@@ -30,8 +30,8 @@ public class DemoMain {
                 WheelSize.SIZE305, CarColor.BLACK, Year.of(2021));                                                      //in the warehouse
 
 
-        carDealership.askServiceToChangeCarColor(firstOrderCar, carService, CarColor.PURPLE);
-        carDealership.askServiceToChangeWheelSize(firstOrderCar, carService, WheelSize.SIZE190);
+        carService.changeCarColor(firstOrderCar, CarColor.PURPLE);
+        carService.changeWheelSize(firstOrderCar, WheelSize.SIZE190);
 
         System.out.println(carDealership.getStock());
         carDealership.sellCar(firstOrderCar);

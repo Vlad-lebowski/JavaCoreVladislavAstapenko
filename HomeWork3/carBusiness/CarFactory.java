@@ -62,26 +62,6 @@ public class CarFactory{
         return car;
     }
 
-    public void askServiceToChangeCarColor (Car car, CarService carService, CarColor carColor){
-        for (Car value : this.warehouse) {
-            if (value.equals(car)) {
-                carService.changeCarColor(car, carColor);
-                return;
-            }
-        }
-        System.out.println("This is the car of this factory!");
-    }
-
-    public void askServiceToChangeWheelSize (Car car, CarService carService, WheelSize wheelSize){
-        for (Car value : this.warehouse) {
-            if (value.equals(car)) {
-                carService.changeWheelSize(car, wheelSize);
-                return;
-            }
-        }
-        System.out.println("This is not the car of this factory!");
-    }
-
     private boolean checkIfFactoryCanMakeThisCar(Car car){ //check if we can make this car
         for (CarModel model : this.carModels) {
             if (model.equals(car.getCarModel())) {
