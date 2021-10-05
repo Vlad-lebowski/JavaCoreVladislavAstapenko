@@ -1,6 +1,7 @@
 package com.company.homeworkThree;
 
 import com.company.homeworkThree.car.Car;
+import com.company.homeworkThree.carBusiness.CarClient;
 import com.company.homeworkThree.carBusiness.CarDealership;
 import com.company.homeworkThree.carBusiness.CarFactory;
 import com.company.homeworkThree.carBusiness.CarService;
@@ -25,6 +26,7 @@ public class DemoMain {
 
         CarDealership carDealership = new CarDealership();
         CarService carService = new CarService();
+        CarClient carClient = new CarClient();
 
         Car firstOrderCar = carDealership.orderCarFromCarFactory(carFactory, CarModel.BMW, EngineVolume.V5,             //ordered a car that was
                 WheelSize.SIZE305, CarColor.BLACK, Year.of(2021));                                                      //in the warehouse
@@ -34,7 +36,8 @@ public class DemoMain {
         carService.changeWheelSize(firstOrderCar, WheelSize.SIZE190);
 
         System.out.println(carDealership.getStock());
-        carDealership.sellCar(firstOrderCar);
+        carDealership.sellCar(firstOrderCar, carClient);
         System.out.println(carDealership.getStock());
+        System.out.println(carClient.getCar());
     }
 }

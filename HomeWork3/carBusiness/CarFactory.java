@@ -12,11 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CarFactory{
-    private CarModel[] carModels;
-    private EngineVolume[] engineVolumes;
-    private CarColor[] carColors;
-    private WheelSize[] wheelSizes;
-    private List<Car> warehouse = new ArrayList<>();
+    private final CarModel[] carModels;
+    private final EngineVolume[] engineVolumes;
+    private final CarColor[] carColors;
+    private final WheelSize[] wheelSizes;
+    private final List<Car> warehouse = new ArrayList<>();
 
     public CarFactory(CarModel[] carModels, EngineVolume[] engineVolumes, CarColor[] carColors, WheelSize[] wheelSizes){
         this.carModels = carModels;
@@ -46,11 +46,11 @@ public class CarFactory{
     }
 
     public Car createNewCarForDealership(CarModel carModel, EngineVolume engineVolume, WheelSize wheelSize, CarColor carColor, Year year){
-        Car car = new Car(carModel, Year.now(), engineVolume);
+        Car car = new Car(carModel, year, engineVolume);
         car.setCarColor(carColor);
         car.setWheelSize(wheelSize);
         Car newCar = chooseTheSameOrSimilarCarFromWarehouse(car);
-        if (!newCar.equals(null)){
+        if (newCar != null){
             return newCar;
         }
         if (!checkIfFactoryCanMakeThisCar(car)) {

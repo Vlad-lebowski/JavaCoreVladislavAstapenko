@@ -16,9 +16,10 @@ public class CarDealership{
     public CarDealership(){
     }
 
-    public void sellCar (Car car){
+    public void sellCar (Car car, CarClient carClient){
         for (Car value : this.stock) {
             if (value.equals(car)) {
+                carClient.buyCar(car);
                 this.stock.remove(car);
                 return;
             }
