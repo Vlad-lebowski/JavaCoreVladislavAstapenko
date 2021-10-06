@@ -16,17 +16,20 @@ public class CarFactory{
     private final EngineVolume[] engineVolumes;
     private final CarColor[] carColors;
     private final WheelSize[] wheelSizes;
+    private final CarWarehouse carWarehouse;
     private final List<Car> warehouse = new ArrayList<>();
 
-    public CarFactory(CarModel[] carModels, EngineVolume[] engineVolumes, CarColor[] carColors, WheelSize[] wheelSizes){
+    public CarFactory(CarModel[] carModels, EngineVolume[] engineVolumes, CarColor[] carColors, WheelSize[] wheelSizes, CarWarehouse carWarehouse){
         this.carModels = carModels;
         this.engineVolumes = engineVolumes;
         this.carColors = carColors;
         this.wheelSizes = wheelSizes;
+        this.carWarehouse = carWarehouse;
         for (int i = 0; i < 5; i++){
-            this.warehouse.add(i, new Car(this.carModels[0], Year.now(), this.engineVolumes[0]));
-            this.warehouse.get(i).setCarColor(this.carColors[0]);
-            this.warehouse.get(i).setWheelSize(this.wheelSizes[0]);
+            Car newCar = new Car(this.carModels[0], Year.now(), this.engineVolumes[0]);
+            newCar.setCarColor(this.carColors[0]);
+            newCar.setWheelSize(this.wheelSizes[0]);
+            this.carWarehouse.addCarToWarehouse(newCar);
         }
     }
 
@@ -35,7 +38,7 @@ public class CarFactory{
         car.setCarColor(carColor);
         car.setWheelSize(wheelSize);
         if (checkIfFactoryCanMakeThisCar(car)){
-            warehouse.add(car);
+            this.carWarehouse.addCarToWarehouse(car);
         } else {
             System.out.println("Look, we can't do that, but here's some basic car!");
             car = new Car(this.carModels[0], Year.now(), this.engineVolumes[0]);
@@ -49,9 +52,13 @@ public class CarFactory{
         Car car = new Car(carModel, year, engineVolume);
         car.setCarColor(carColor);
         car.setWheelSize(wheelSize);
-        Car newCar = chooseTheSameOrSimilarCarFromWarehouse(car);
-        if (newCar != null){
-            return newCar;
+        if (carWarehouse.hasSameCar(car)){
+            return carWarehouse.takeSimilarCar(car);
+        }
+        if (carWarehouse.hasCarWithSimilarUnchangeableProperties(car)){
+            car.setWheelSize(this.wheelSizes[0]);
+            car.setCarColor(this.carColors[0]);
+            return carWarehouse.takeCarWithSimilarUnchangeableProperties(car);
         }
         if (!checkIfFactoryCanMakeThisCar(car)) {
             System.out.println("Look, this factory don't make such cars, but here's some basic car!");
@@ -81,40 +88,6 @@ public class CarFactory{
             }
         }
         return false;
-    }
-
-    private Car chooseTheSameOrSimilarCarFromWarehouse (Car car){
-        for (Car carSearch : warehouse){
-            if (carSearch.getCarColor().equals(car.getCarColor()) &&
-                    carSearch.getCarModel().equals(car.getCarModel()) &&
-                    carSearch.getEngineVolume().equals(car.getEngineVolume()) &&
-                    carSearch.getWheelSize().equals(car.getWheelSize()) &&
-                    carSearch.getYearOfIssue().equals(car.getYearOfIssue())){
-                warehouse.remove(carSearch);
-                return car;
-            } else if (carSearch.getCarModel().equals(car.getCarModel()) &&          //check if we have similar car depending on
-                    carSearch.getEngineVolume().equals(car.getEngineVolume()) &&     //unchangeable qualities
-                    carSearch.getYearOfIssue().equals(car.getYearOfIssue())){
-                Car extra = carSearch;
-                extra.setCarColor(this.carColors[0]);
-                extra.setWheelSize(this.wheelSizes[0]);
-                for (CarColor color : this.carColors) {
-                    if (color.equals(car.getCarColor())) {
-                        extra.setCarColor(color);
-                        break;
-                    }
-                }
-                for (WheelSize size : this.wheelSizes) {
-                    if (size.equals(car.getWheelSize())) {
-                        extra.setWheelSize(size);
-                        break;
-                    }
-                }
-                warehouse.remove(carSearch);
-                return extra;
-            }
-        }
-        return null;
     }
 
     public void printPossibleCarModels(){

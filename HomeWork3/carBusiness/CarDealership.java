@@ -7,33 +7,23 @@ import com.company.homeworkThree.carProperties.EngineVolume;
 import com.company.homeworkThree.carProperties.WheelSize;
 
 import java.time.Year;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CarDealership{
-    private List<Car> stock = new ArrayList<>();
+    private final CarWarehouse carWarehouse;
 
-    public CarDealership(){
+    public CarDealership(CarWarehouse carWarehouse){
+        this.carWarehouse = carWarehouse;
     }
 
     public void sellCar (Car car, CarClient carClient){
-        for (Car value : this.stock) {
-            if (value.equals(car)) {
-                carClient.buyCar(car);
-                this.stock.remove(car);
-                return;
-            }
+        if (this.carWarehouse.hasSameCar(car)){
+            carClient.buyCar(this.carWarehouse.takeSimilarCar(car));
         }
-        System.out.println("This is the car of this dealership!");
     }
 
     public Car orderCarFromCarFactory(CarFactory carFactory, CarModel carModel, EngineVolume engineVolume, WheelSize wheelSize, CarColor carColor, Year year){
         Car car = carFactory.createNewCarForDealership(carModel, engineVolume, wheelSize, carColor, year);
-        stock.add(car);
+        carWarehouse.addCarToWarehouse(car);
         return car;
-    }
-
-    public List<Car> getStock() {
-        return stock;
     }
 }
