@@ -1,9 +1,6 @@
 package com.company.homeworkThree.car;
 
-import com.company.homeworkThree.carProperties.CarColor;
-import com.company.homeworkThree.carProperties.CarModel;
-import com.company.homeworkThree.carProperties.EngineVolume;
-import com.company.homeworkThree.carProperties.WheelSize;
+import com.company.homeworkThree.carProperties.*;
 
 import java.time.Year;
 
@@ -13,11 +10,13 @@ public class Car {
     private final Year yearOfIssue;
     private WheelSize wheelSize;
     private final EngineVolume engineVolume;
+    private final Options options;
 
     public Car (CarModel carModel, Year yearOfIssue, EngineVolume engineVolume){
         this.carModel = carModel;
         this.yearOfIssue = yearOfIssue;
         this.engineVolume = engineVolume;
+        this.options = new Options();
     }
 
     public CarColor getCarColor(){
@@ -56,6 +55,15 @@ public class Car {
                 ", yearOfIssue=" + yearOfIssue +
                 ", wheelSize=" + wheelSize +
                 ", engineVolume=" + engineVolume +
+                ", options=" + options.getOptionList() +
                 '}';
+    }
+
+    public void addOption(String option) {
+        this.options.addOption(option);
+    }
+
+    public void deleteOption(String option) {
+        this.options.deleteOptions(option);
     }
 }

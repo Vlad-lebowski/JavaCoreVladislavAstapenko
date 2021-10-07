@@ -12,4 +12,12 @@ public class CarService {
     public void changeWheelSize(Car car, WheelSize wheelSize){
         car.setWheelSize(wheelSize);
     }
+
+    public void addOption(Car car, String option) {
+        car.addOption(option);
+    }
+
+    public void deleteOption(Car car, String option) {
+        car.deleteOption(option);
+    }
 }

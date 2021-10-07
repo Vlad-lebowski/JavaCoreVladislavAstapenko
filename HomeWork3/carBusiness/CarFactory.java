@@ -17,14 +17,17 @@ public class CarFactory{
     private final CarColor[] carColors;
     private final WheelSize[] wheelSizes;
     private final CarWarehouse carWarehouse;
-    private final List<Car> warehouse = new ArrayList<>();
 
-    public CarFactory(CarModel[] carModels, EngineVolume[] engineVolumes, CarColor[] carColors, WheelSize[] wheelSizes, CarWarehouse carWarehouse){
+    public CarWarehouse getCarWarehouse() {
+        return carWarehouse;
+    }
+
+    public CarFactory(CarModel[] carModels, EngineVolume[] engineVolumes, CarColor[] carColors, WheelSize[] wheelSizes){
         this.carModels = carModels;
         this.engineVolumes = engineVolumes;
         this.carColors = carColors;
         this.wheelSizes = wheelSizes;
-        this.carWarehouse = carWarehouse;
+        this.carWarehouse = new CarWarehouse();
         for (int i = 0; i < 5; i++){
             Car newCar = new Car(this.carModels[0], Year.now(), this.engineVolumes[0]);
             newCar.setCarColor(this.carColors[0]);
@@ -56,9 +59,18 @@ public class CarFactory{
             return carWarehouse.takeSimilarCar(car);
         }
         if (carWarehouse.hasCarWithSimilarUnchangeableProperties(car)){
-            car.setWheelSize(this.wheelSizes[0]);
-            car.setCarColor(this.carColors[0]);
-            return carWarehouse.takeCarWithSimilarUnchangeableProperties(car);
+            car = carWarehouse.takeCarWithSimilarUnchangeableProperties(car);
+            for (CarColor color : carColors){
+                if (color.equals(carColor)){
+                    car.setCarColor(carColor);
+                }
+            }
+            for (WheelSize size : wheelSizes){
+                if (size.equals(wheelSize)){
+                    car.setWheelSize(wheelSize);
+                }
+            }
+            return car;
         }
         if (!checkIfFactoryCanMakeThisCar(car)) {
             System.out.println("Look, this factory don't make such cars, but here's some basic car!");
@@ -118,9 +130,5 @@ public class CarFactory{
 
     public CarModel[] getCarModels() {
         return carModels;
-    }
-
-    public List<Car> getWarehouse() {
-        return warehouse;
     }
 }

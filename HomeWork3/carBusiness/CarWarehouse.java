@@ -8,6 +8,10 @@ import java.util.List;
 public class CarWarehouse {
     private final List<Car> cars;
 
+    public List<Car> getCars() {
+        return cars;
+    }
+
     public CarWarehouse() {
         cars = new ArrayList<>();
     }
