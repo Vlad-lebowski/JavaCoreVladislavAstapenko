@@ -8,6 +8,8 @@ import com.company.homeworkThree.carProperties.EngineVolume;
 import com.company.homeworkThree.carProperties.WheelSize;
 
 import java.time.Year;
+import java.util.Arrays;
+import java.util.List;
 
 public class DemoMain {
     public static void main(String[] args) {
@@ -38,5 +40,11 @@ public class DemoMain {
 
         carDealership.sellCar(firstOrderCar, carClient);
         System.out.println("Client bought a car: " + carClient.getCar());
+
+        CarColor[] carColors = {CarColor.WHITE, CarColor.BLUE, CarColor.BLACK};
+        List<CarColor> carColorList = Arrays.asList(carColors);
+        if (carColorList.contains(CarColor.WHITE)){
+            System.out.println(true);
+        }
     }
 }

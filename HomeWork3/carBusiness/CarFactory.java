@@ -7,15 +7,14 @@ import com.company.homeworkThree.carProperties.EngineVolume;
 import com.company.homeworkThree.carProperties.WheelSize;
 
 import java.time.Year;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class CarFactory{
-    private final CarModel[] carModels;
-    private final EngineVolume[] engineVolumes;
-    private final CarColor[] carColors;
-    private final WheelSize[] wheelSizes;
+    private final List<CarModel> carModels;
+    private final List<EngineVolume> engineVolumes;
+    private final List<CarColor> carColors;
+    private final List<WheelSize> wheelSizes;
     private final CarWarehouse carWarehouse;
 
     public CarWarehouse getCarWarehouse() {
@@ -23,15 +22,15 @@ public class CarFactory{
     }
 
     public CarFactory(CarModel[] carModels, EngineVolume[] engineVolumes, CarColor[] carColors, WheelSize[] wheelSizes){
-        this.carModels = carModels;
-        this.engineVolumes = engineVolumes;
-        this.carColors = carColors;
-        this.wheelSizes = wheelSizes;
+        this.carModels = Arrays.asList(carModels);
+        this.engineVolumes = Arrays.asList(engineVolumes);
+        this.carColors = Arrays.asList(carColors);
+        this.wheelSizes = Arrays.asList(wheelSizes);
         this.carWarehouse = new CarWarehouse();
         for (int i = 0; i < 5; i++){
-            Car newCar = new Car(this.carModels[0], Year.now(), this.engineVolumes[0]);
-            newCar.setCarColor(this.carColors[0]);
-            newCar.setWheelSize(this.wheelSizes[0]);
+            Car newCar = new Car(this.carModels.get(0), Year.now(), this.engineVolumes.get(0));
+            newCar.setCarColor(this.carColors.get(0));
+            newCar.setWheelSize(this.wheelSizes.get(0));
             this.carWarehouse.addCarToWarehouse(newCar);
         }
     }
@@ -44,9 +43,9 @@ public class CarFactory{
             this.carWarehouse.addCarToWarehouse(car);
         } else {
             System.out.println("Look, we can't do that, but here's some basic car!");
-            car = new Car(this.carModels[0], Year.now(), this.engineVolumes[0]);
-            car.setCarColor(this.carColors[0]);
-            car.setWheelSize(this.wheelSizes[0]);
+            car = new Car(this.carModels.get(0), Year.now(), this.engineVolumes.get(0));
+            car.setCarColor(this.carColors.get(0));
+            car.setWheelSize(this.wheelSizes.get(0));
         }
         return car;
     }
@@ -74,61 +73,47 @@ public class CarFactory{
         }
         if (!checkIfFactoryCanMakeThisCar(car)) {
             System.out.println("Look, this factory don't make such cars, but here's some basic car!");
-            car = new Car(this.carModels[0], Year.now(), this.engineVolumes[0]);
-            car.setCarColor(this.carColors[0]);
-            car.setWheelSize(this.wheelSizes[0]);
+            car = new Car(this.carModels.get(0), Year.now(), this.engineVolumes.get(0));
+            car.setCarColor(this.carColors.get(0));
+            car.setWheelSize(this.wheelSizes.get(0));
         }
         return car;
     }
 
     private boolean checkIfFactoryCanMakeThisCar(Car car){ //check if we can make this car
-        for (CarModel model : this.carModels) {
-            if (model.equals(car.getCarModel())) {
-                for (EngineVolume volume : this.engineVolumes) {
-                    if (volume.equals(car.getEngineVolume())) {
-                        for (WheelSize size : this.wheelSizes) {
-                            if (size.equals(car.getWheelSize())) {
-                                for (CarColor color : this.carColors) {
-                                    if (color.equals(car.getCarColor())) {
-                                        return true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
+        return this.carColors.contains(car.getCarColor()) &&
+                this.wheelSizes.contains(car.getWheelSize()) &&
+                this.engineVolumes.contains(car.getEngineVolume()) &&
+                this.carModels.contains(car.getCarModel());
     }
 
     public void printPossibleCarModels(){
-        System.out.println(Arrays.toString(this.carModels));
+        System.out.println(this.carModels);
     }
     public void printPossibleEngineVolumes(){
-        System.out.println(Arrays.toString(this.engineVolumes));
+        System.out.println(this.engineVolumes);
     }
     public void printPossibleCarColors(){
-        System.out.println(Arrays.toString(this.carColors));
+        System.out.println(this.carColors);
     }
     public void printPossibleWheelSizes(){
-        System.out.println(Arrays.toString(this.wheelSizes));
+        System.out.println(this.wheelSizes);
     }
 
 
-    public WheelSize[] getWheelSizes() {
+    public List<WheelSize> getWheelSizes() {
         return wheelSizes;
     }
 
-    public CarColor[] getCarColors() {
+    public List<CarColor> getCarColors() {
         return carColors;
     }
 
-    public EngineVolume[] getEngineVolumes() {
+    public List<EngineVolume> getEngineVolumes() {
         return engineVolumes;
     }
 
-    public CarModel[] getCarModels() {
+    public List<CarModel> getCarModels() {
         return carModels;
     }
 }
