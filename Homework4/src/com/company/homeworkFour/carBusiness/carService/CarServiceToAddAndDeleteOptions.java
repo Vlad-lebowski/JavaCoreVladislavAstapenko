@@ -4,13 +4,16 @@ import com.company.homeworkFour.car.Car;
 import com.company.homeworkFour.carProperties.options.Optionable;
 
 public class CarServiceToAddAndDeleteOptions extends CarService {
-    @Override
+
     public void addOption(Car car, Optionable option) {
-        super.addOption(car, option);
+        car.addOption(option);
     }
 
-    @Override
     public void deleteOption(Car car, Optionable option) {
-        super.deleteOption(car, option);
+        car.deleteOption(option);
+    }
+
+    public String getName() {
+        return super.name;
     }
 }

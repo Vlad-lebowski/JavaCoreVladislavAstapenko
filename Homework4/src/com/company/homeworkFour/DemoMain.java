@@ -47,43 +47,5 @@ public class DemoMain {
         System.out.println(car1);
 
 
-
-
-
-
-
-
-
-
-
-
-
-//        carFactory.printPossibleCarModels();
-//        carFactory.printPossibleEngineVolumes();
-//        carFactory.printPossibleCarColors();
-//        carFactory.printPossibleWheelSizes();
-//
-//        Car newCar = carFactory.createCarForWarehouse(CarModel.BMW, EngineVolume.V5, WheelSize.SIZE305, CarColor.BLACK);
-//
-//        CarDealership carDealership = new CarDealership();
-//        CarServiceToChangeColor carService = new CarServiceToChangeColor();
-//        CarServiceToChangeWheelSize carService2 = new CarServiceToChangeWheelSize();
-//        System.out.println(carFactory.getCarWarehouse().getCars());
-//
-//        Car firstOrderCar = carDealership.orderCarFromCarFactory(carFactory, CarModel.BMW, EngineVolume.V5,             //ordered a car that was
-//                WheelSize.SIZE305, CarColor.BLACK, Year.of(2021));                                                      //in the warehouse
-//
-//
-//        System.out.println(carFactory.getCarWarehouse().getCars());
-//
-//        carService.changeCarColor(firstOrderCar, CarColor.PURPLE);
-//        carService2.changeWheelSize(firstOrderCar, WheelSize.SIZE190);
-//
-//
-//        CarColor[] carColors = {CarColor.WHITE, CarColor.BLUE, CarColor.BLACK};
-//        List<CarColor> carColorList = Arrays.asList(carColors);
-//        if (carColorList.contains(CarColor.WHITE)){
-//            System.out.println(true);
-//        }
     }
 }
