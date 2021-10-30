@@ -9,11 +9,12 @@ public class BattlegroundMain {
     public static void main(String[] args) throws InterruptedException {
 
         Storage storage = new Storage();
+        EndOfWarFlag flag = new EndOfWarFlag();
 
-        NeutralFactory neutralFactory = new NeutralFactory(storage);
+        NeutralFactory neutralFactory = new NeutralFactory(storage, flag);
 
-        Country firstCountry = new Country(storage);
-        Country secondCountry = new Country(storage);
+        Country firstCountry = new Country(storage, flag);
+        Country secondCountry = new Country(storage, flag);
 
         Thread thread = new Thread(neutralFactory);
         Thread thread_1 = new Thread(firstCountry);

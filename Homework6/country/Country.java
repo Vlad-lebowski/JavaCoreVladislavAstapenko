@@ -12,31 +12,31 @@ import java.util.List;
 public class Country implements Runnable{
     private final List<Robot> ROBOT_ARMY;
     private final List<RobotBodyParts> STORAGE_OF_THE_COUNTRY;
-    private final Storage STORAGE_OF_THE_FACTORY;
+    private final Storage NEUTRAL_STORAGE;
 
     private final EndOfWarFlag END_OF_WAR;
     private int serialNumber;
 
-    public Country(Storage storage) {
+    public Country(Storage storage, EndOfWarFlag flag) {
         this.ROBOT_ARMY = new ArrayList<>();
         this.STORAGE_OF_THE_COUNTRY = new ArrayList<>();
-        this.STORAGE_OF_THE_FACTORY = storage;
+        this.NEUTRAL_STORAGE = storage;
         serialNumber = 0;
-        this.END_OF_WAR = new EndOfWarFlag();
+        this.END_OF_WAR = flag;
     }
 
     @Override
     public void run() {
         try {
             while (END_OF_WAR.checkIfWarIsStillGoing()) {
-                synchronized (STORAGE_OF_THE_FACTORY.getBODY_PARTS_LIST()) {
-                    Iterator<RobotBodyParts> iterator = this.STORAGE_OF_THE_FACTORY.getBODY_PARTS_LIST().iterator();
+                synchronized (NEUTRAL_STORAGE.getBODY_PARTS_LIST()) {
+                    Iterator<RobotBodyParts> iterator = this.NEUTRAL_STORAGE.getBODY_PARTS_LIST().iterator();
                     while (iterator.hasNext()) {
                         RobotBodyParts part = iterator.next();
                         if(!STORAGE_OF_THE_COUNTRY.contains(part)) {
                             STORAGE_OF_THE_COUNTRY.add(part);
                             iterator.remove();
-                            System.out.println(Thread.currentThread().getName() + " Current number of details: " + this.STORAGE_OF_THE_FACTORY.getBODY_PARTS_LIST().size());
+                            System.out.println(Thread.currentThread().getName() + " Current number of details: " + this.NEUTRAL_STORAGE.getBODY_PARTS_LIST().size());
                         }
                     }
                     if (STORAGE_OF_THE_COUNTRY.contains(RobotBodyParts.LEFT_ARM) && STORAGE_OF_THE_COUNTRY.contains(RobotBodyParts.RIGHT_ARM) &&
