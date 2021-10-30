@@ -1,45 +1,32 @@
 package com.company.homeworkSix.factory;
 
-import com.company.homeworkSix.countries.Country;
+import com.company.homeworkSix.EndOfWarFlag;
 import com.company.homeworkSix.robot.RobotBodyParts;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NeutralFactory implements Runnable {
-    private final List<RobotBodyParts> BODY_PARTS_LIST = new ArrayList<>();
+
+    private final Storage storage;
     private int count = 0;
+    private final EndOfWarFlag END_OF_WAR;
 
-    public List<RobotBodyParts> getBODY_PARTS_LIST() {
-        return BODY_PARTS_LIST;
-    }
-
-    private Country firstCountry;
-    private Country secondCountry;
-
-
-    public void setFirstCountry(Country firstCountry) {
-        this.firstCountry = firstCountry;
-    }
-
-    public void setSecondCountry(Country secondCountry) {
-        this.secondCountry = secondCountry;
+    public NeutralFactory(Storage storage) {
+        this.storage = storage;
+        this.END_OF_WAR = new EndOfWarFlag();
     }
 
     @Override
     public void run() {
         try {
             while (true) {
-                synchronized (BODY_PARTS_LIST) {
-                    if (firstCountry.isNeedMoreTroops() || secondCountry.isNeedMoreTroops()) {
+                synchronized (storage.getBODY_PARTS_LIST()) {
+                    if (!END_OF_WAR.checkIfWarIsStillGoing()) {
                         return;
                     }
                     count++;
 
                     Thread.sleep(5000);
-                    BODY_PARTS_LIST.add(RobotBodyParts.randomPart());
+                    storage.getBODY_PARTS_LIST().add(RobotBodyParts.randomPart());
                     System.out.println("Factory produced: " + count);
-                    BODY_PARTS_LIST.notify();
                 }
             }
         } catch (InterruptedException exception) {

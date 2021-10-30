@@ -1,23 +1,19 @@
 package com.company.homeworkSix;
 
-import com.company.homeworkSix.countries.Country;
+import com.company.homeworkSix.country.Country;
 import com.company.homeworkSix.factory.NeutralFactory;
+import com.company.homeworkSix.factory.Storage;
 
 public class BattlegroundMain {
 
     public static void main(String[] args) throws InterruptedException {
 
-        NeutralFactory neutralFactory = new NeutralFactory();
+        Storage storage = new Storage();
 
-        //setting up business relationships
-        Country firstCountry = new Country(neutralFactory);
-        Country secondCountry = new Country(neutralFactory);
-        neutralFactory.setFirstCountry(firstCountry);
-        neutralFactory.setSecondCountry(secondCountry);
+        NeutralFactory neutralFactory = new NeutralFactory(storage);
 
-        //setting up rivals
-        firstCountry.setSecondCountry(secondCountry);
-        secondCountry.setSecondCountry(firstCountry);
+        Country firstCountry = new Country(storage);
+        Country secondCountry = new Country(storage);
 
         Thread thread = new Thread(neutralFactory);
         Thread thread_1 = new Thread(firstCountry);
